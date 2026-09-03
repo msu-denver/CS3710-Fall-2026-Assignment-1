@@ -18,10 +18,14 @@ jobs:
           bundler-cache: true # Automatically runs 'bundle install' and caches gems
 
       # 2. Set up the database (if needed)
+      - name: Run the bundler
+        run: bundle install
+
+      # 3. Set up the database (if needed)
       - name: Set up database
         run: bin/rails db:migrate
 
-      # 3. Run your tests using bundler
+      # 4. Run your tests using bundler
       - name: Run Rails tests
         run: bin/rails test
 
