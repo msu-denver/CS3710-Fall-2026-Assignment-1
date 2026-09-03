@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Characters" %>
+
+<h1>Characters</h1>
+
+<%= form_with(model: Character) do |form| %>
+    <!--
+    Method:	The database column/attribute where the selection is saved.
+    Collection: all the values in the drop-down
+    Value Method: what is returned to the controller
+    Text Method: what is displayed in the drop-down
+    -->
+    <%= form.collection_select :character, Character.all, :id, :character %>
+<% end %>
+
+<%= link_to "New character", new_character_path %>
