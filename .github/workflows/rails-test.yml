@@ -1,23 +1,29 @@
-name: Rails Test
+name: Run Ruby on Rails Tests
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.3'
-        bundler-cache: true
+      # 1. Set up the Ruby environment
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3' # Match your project's Ruby version
+          bundler-cache: true # Automatically runs 'bundle install' and caches gems
 
-    - name: Run tests
-      run: rails test
+      # 2. Set up the database (if needed)
+      - name: Set up database
+        run: |
+          bin/rails db:create
+          bin/rails db:schema:load
+
+      # 3. Run your tests using bundler
+      - name: Run Rails tests
+        run: bundle exec rails test
+
