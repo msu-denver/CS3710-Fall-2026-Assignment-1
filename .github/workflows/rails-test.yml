@@ -19,11 +19,9 @@ jobs:
 
       # 2. Set up the database (if needed)
       - name: Set up database
-        run: |
-          bin/rails db:create
-          bin/rails db:schema:load
+        run: bin/rails db:migrate
 
       # 3. Run your tests using bundler
       - name: Run Rails tests
-        run: bundle exec rails test
+        run: bin/rails test
 
